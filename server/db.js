@@ -3,9 +3,7 @@ require('dotenv').config();
 
 const client = new pg.Client(process.env.DATABASE_URL);
 
-client.connect()
-    .then(() => console.log('Connected to the database!'))
-    .catch(err => console.error('Connection error', err.stack));
+
 
 const createTables = async () => {
     try {
@@ -35,10 +33,22 @@ const createTables = async () => {
 };
 
 
+createUsers = async (username, password) => {
+    try {
+
+        const SQL = `INSERT INTO users(id, username, password) VALUES($1, $2, $3) RETURNING *;
+        `;
+        const { rows } = await client.query(SQL, [uuid(), username, password]);
+        return rows[0];
+    } catch (error) {
+        console.error('Error creating users: ', error);
+    }
+};
 
 
 
 module.exports = {
     client,
-    createTables
+    createTables,
+    createUsers,
 };

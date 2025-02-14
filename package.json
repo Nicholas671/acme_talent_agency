@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon server/index.js",
     "seed": "node ./server/seed.js",
-    "seed:dev": "node ./server/seed.js"
+    "seed:dev": "nodemon ./server/seed.js"
   },
   "keywords": [],
   "author": "",
